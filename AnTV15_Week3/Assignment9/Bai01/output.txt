@@ -1,0 +1,4 @@
+Tri o()
+Rec o()
+Cir o()
+Ell o()
