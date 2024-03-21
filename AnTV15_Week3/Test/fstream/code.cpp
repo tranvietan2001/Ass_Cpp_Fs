@@ -364,3 +364,49 @@
 
 //     return 0;
 // }
+
+// #include <iostream>
+// #include <fstream>
+// #include <string>
+
+// std::string readLine(const std::string& filename, int line) {
+//     std::ifstream file(filename);
+//     std::string data;
+//     int currentLine = 0;
+    
+//     if (file.is_open()) {
+//         while (std::getline(file, data)) {
+//             currentLine++;
+//             if (currentLine == line) {
+//                 file.close();
+//                 return data;
+//             }
+//         }
+//         file.close();
+//     }
+//     return "";
+// }
+
+// int main() {
+//     std::string filename = "data.txt";
+//     int line = 1;
+    
+//     std::string lineData = readLine(filename, line);
+//     if (!lineData.empty()) {
+//         std::cout << "Line " << line << ": " << lineData << std::endl;
+//     } else {
+//         std::cout << "Unable to read line " << line << std::endl;
+//     }
+    
+//     return 0;
+// }
+
+        string fromString(const string &s) override{
+            string line = readLine(file_input, 2);
+            string str = "";
+            if(line[0] == '1'){
+                str = "Recangle";
+            }
+            else str = "";
+            return str;
+        }   

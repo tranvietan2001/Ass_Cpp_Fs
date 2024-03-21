@@ -7,6 +7,10 @@
 
 using namespace std;
 const float PI = 3.14159;
+
+const string file_input = "data.txt";
+const string file_out = "output.txt";
+
 class Point{
     private:
         float x;
@@ -94,11 +98,8 @@ class Point{
         friend class Shape;
 };
 
-class Shape : public Point{
-    private:
-
-    public:
-        
+class Shape{
+    public:  
         virtual float getPerimeter() = 0;
         virtual float getArea() = 0;
         //đọc shape từ string file: số đầu tiên là type  các số tiếp theo là hình
@@ -112,7 +113,6 @@ class Triangle : public Shape{
         Point a;
         Point b;
         Point c;
-        vector<float> v_data;
 
     public:
         // Triangle(): a(0,0), b(0,0), c(0,0){};
@@ -134,41 +134,28 @@ class Triangle : public Shape{
         return area;
     }
     string fromString(const string &s) override{
-
-
+        ostringstream oss;
+        oss << "Triangle";
+        return oss.str();
     }   
 
     string toString() override{
         ostringstream oss;
-        // oss << "Tri : a(" << a.getX << "," << a.getY << ")";
-        oss << "Tri o()";
+        oss << "0 " << a.getX() << " " << a.getY() << " " << b.getX() << " " << b.getY() << " " << c.getX() << " " << c.getY() << "\t\t\t" 
+            << "-> 0 la type Triangle, (" << a.getX() << "," << a.getY()<< "), (" << b.getX() << "," << b.getY()<< "), ("<< c.getX() << "," << c.getY()<< ""<< ") la 3 dinh cua tam giac";
         return oss.str();
     } 
 
-    void setData(float value){
-        // cout << "setData()" << endl;
-        v_data.push_back(value);
-    }
-
-    void getData(){
-        int i;
-        // cout << "getData()" << endl;
-        for(const float& data : v_data){
-            if(i!=v_data.size())
-                cout << data << "-";
-            else cout << endl; 
-        }
-    }
 };
 
 class Rectangle : public Shape{
     private:
         Point o;
-        float h;
         float w;
+        float h;
     public:
-        Rectangle(): o(0,0), h(0), w(0){}
-        Rectangle(Point v_o, float v_h, float v_w): o(v_o), h(v_h), w(v_w){}
+        Rectangle(): o(0,0), w(0), h(0){}
+        Rectangle(Point v_o, float v_w, float v_h): o(v_o), w(v_w), h(v_h){}
 
         float getPerimeter() override{
             float p = (h + w) * 2 ;
@@ -179,13 +166,15 @@ class Rectangle : public Shape{
             return area;
         }
         string fromString(const string &s) override{
-
+            ostringstream oss;
+            oss << "Rectangle";
+            return oss.str();
         }   
 
         string toString() override{
             ostringstream oss;
-            // oss << "Rec o(" << o.getX << "," << o.getY << ")";
-            oss << "Rec o()";
+            oss << "1 " << o.getX() << " " << o.getY() << " " << w << " " << h << "\t\t\t\t" 
+            << "-> 1 la type Recangle, (" << o.getX() << "," << o.getY()<< ") la tam, " << w << " la width," << h<< " la height";
             return oss.str();
         } 
 
@@ -202,20 +191,21 @@ class Circle : public Shape{
         float getPerimeter() override{
             float p = 2 * r * pi;
             return p;
-
         }
         float getArea() override{
             float area = pi * r * r;
             return area;
         }
         string fromString(const string &s) override{
-
+            ostringstream oss;
+            oss << "Cricle";
+            return oss.str();
         }   
 
         string toString() override{
             ostringstream oss;
-            // oss << "Cir o(" << o.getX << "," << o.getY << ")";
-            oss << "Cir o()";
+            oss << "2 " << o.getX() << " " << o.getY() << " " << r << "\t\t\t\t" 
+            << "-> 2 la type Circle, (" << o.getX() << "," << o.getY()<< ") la tam, " << r << " la ban kinh";
             return oss.str();
         } 
 };
@@ -238,13 +228,15 @@ class Ellipse : public Shape{
             return area;
         }
         string fromString(const string &s) override{
-
+            ostringstream oss;
+            oss << "Ellipse";
+            return oss.str();
         }   
 
         string toString() override{
             ostringstream oss;
-            // oss << "Elli o(" << o.getX << "," << o.getY << ")";
-            oss << "Ell o()";
+            oss << "3 " << o.getX() << " " << o.getY() << " " << r1 << " " << r2 << "\t\t\t\t" 
+            << "-> 3 la type Ellipse, (" << o.getX() << "," << o.getY()<< ") la tam, (" << r1 << "," << r2<< ") la ban kinh (rx, ry)";
             return oss.str();
         } 
 
@@ -260,10 +252,10 @@ class ShapeFactory{
                 while (iss >> value){
                     list_value.push_back(value);
                 }
-                for(const float& l: list_value){
-                    cout << l << endl;
-                }
-                cout << "-------------" << endl;
+                // for(const float& l: list_value){
+                //     cout << l << endl;
+                // }
+                // cout << "-------------" << endl;
                 Point a(list_value[0], list_value[1]);
                 Point b(list_value[2], list_value[3]);
                 Point c(list_value[4], list_value[5]);
@@ -275,14 +267,11 @@ class ShapeFactory{
                 while (iss >> value){
                     list_value.push_back(value);
                 }
-                for(const float& l: list_value){
-                    cout << l << endl;
-                }
-                cout << "-------------" << endl;
+
                 Point o(list_value[0], list_value[1]);
-                float h = list_value[2];
-                float w = list_value[3];
-                return new Rectangle(o, h, w);
+                float w = list_value[2];
+                float h = list_value[3];
+                return new Rectangle(o, w, h);
             }
             else if(type == 2){
                 vector<float> list_value;
@@ -290,10 +279,7 @@ class ShapeFactory{
                 while (iss >> value){
                     list_value.push_back(value);
                 }
-                for(const float& l: list_value){
-                    cout << l << endl;
-                }
-                cout << "-------------" << endl;
+;
                 Point o(list_value[0], list_value[1]);
                 float r = list_value[2];
                 return new Circle(o, r );
@@ -304,10 +290,7 @@ class ShapeFactory{
                 while (iss >> value){
                     list_value.push_back(value);
                 }
-                for(const float& l: list_value){
-                    cout << l << endl;
-                }
-                cout << "-------------" << endl;
+                
                 Point o(list_value[0], list_value[1]);
                 float r1 = list_value[2];
                 float r2 = list_value[3];
@@ -321,7 +304,7 @@ class ShapeFactory{
             ifstream inputFile(filename);
             string line;
             while (std::getline(inputFile, line)) {
-                int type = line[0] - '0';
+                int type = line[0] - '0'; // chuyển string thành int, từ ký tự số thành giá trị số
                 string shapeData = line.substr(2);
                 Shape* shape = createShape(type, shapeData);
                 if (shape != nullptr) {
@@ -333,179 +316,31 @@ class ShapeFactory{
         }
         void saveShapesToFile(const string& filename, const list<Shape*>& shapes) {
             ofstream outputFile(filename);
-            cout << " Save" << endl;
             for (Shape* shape : shapes) {
                 outputFile << shape->toString() << std::endl;
-                cout << " Save" << endl;
             }
             outputFile.close();
         }
 };
 
+
+
 int main(int argc, char const *argv[]){
-    // float x1,x2,y1,y2;
-    // Point p1, p2;
-    // cout << "_Point_" << endl;
 
-    // cout << " Nhap toa do diem tu nhat: " << endl;
-    // cout << " - x1 = ";
-    // cin >> x1;
-    // cout << " - y1 = ";
-    // cin >> y1;
-    // p1.setX(x1);
-    // p1.setY(y1);
+    ShapeFactory shapeFactory;
 
-    // cout << " Nhap toa do diem tu hai: " << endl;
-    // cout << " - x2 = ";
-    // cin >> x2;
-    // cout << " - y2 = ";
-    // cin >> y2;
-    // p2.setX(x2);
-    // p2.setY(y2);
-    // cout << "------------------------" << endl;
-
-    // cout << "_Toa do 2 diem vua mhap_" << endl;
-    // cout << "-- P1(" << p1.getX() << ", " << p1.getY() << ")" << endl;
-    // cout << "-- P2(" << p2.getX() << ", " << p2.getY() << ")" << endl;
-    // cout << "------------------------" << endl;
-
-/**************************************************************/
-
-    // ifstream input_file("data.txt");
-
-    // string line;
-
-    // vector<float> tri;
-
-    // while (getline(input_file, line)){
-    //     char shapType = line[0];
-
-    //     cout<< shapType << endl;
-    //     cout << " =====" << endl;
-    //     if (shapType == '0'){
-    //         cout << "Tam giac" << endl;
-    //         Triangle c_tri;
-    //         istringstream iss(line.substr(2));
-    //         float x1, y1, x2,y2,x3,y3;
-    //         // iss >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
-    //         // cout << x1 << "-"<< y1 <<"-"<< x2 << "-"<< y2 << "-"<< x3 << "-"<< y3 << endl;
-    //         while (iss >> x1){
-    //             // cout << x1 << "-";
-    //             // tri.push_back(x1);
-    //             c_tri.setData(x1);
-    //         }
-    //         // cout << endl;
-    //         // cout << " -----" << endl;
-    //         // for(const float& d : tri){
-    //         //     cout << d ;
-    //         // }
-    //         // cout << endl;
-    //         c_tri.getData();
-            
-    //     }
-    //     else if (shapType == '1'){
-    //         cout << "Chu Nhat" << endl;
-
-    //         istringstream iss(line.substr(2));
-    //         float o_x, o_y, h, w;
-    //         iss >> o_x >> o_y >> h >> w;
-    //         cout << o_x << "-"<< o_y << "-" << h << "-" << w << endl;
-            
-    //     }
-    //     else if (shapType == '2'){
-    //         cout << "Tron" << endl;
-
-    //         istringstream iss(line.substr(2));
-    //         float o_x, o_y, r;
-    //         iss >> o_x >> o_y >> r ;
-    //         cout << o_x << "-"<< o_y << "-" << r << endl;
-                      
-    //     }
-    //     else if (shapType == '3'){
-    //         cout << "Elip" << endl;
-
-    //         istringstream iss(line.substr(2));
-    //         float o_x, o_y, r1,r2;
-    //         iss >> o_x >> o_y >> r1 >> r2;
-    //         cout << o_x << "-"<< o_y << "-" << r1 << "-" << r2 << endl;
-    //     }
-    //     else cout << "Error type" << endl;
-    // }
-
-    // input_file.close();
-    
-    // ifstream inputFile("data.txt");
-    // if (!inputFile) {
-    //     std::cerr << "khong the mo file input.txt!" << std::endl;
-    //     return 1;
-    // }
-
-    // while (getline(inputFile, line)){
-    //     char shapType = line[0];
-    //     cout << line.size() << endl;
-    // }
-
-    // cout << " ddd" << endl;
-
-
-/**********************************************************************/
-
-    // Đọc từng dòng trong file và ghi dữ liệu vào cuối mỗi dòng
-    // std::string line_out;
-    // std::ofstream outputFile("output.txt");
-    // if (!outputFile) {
-    //     std::cerr << "khong the tao file output.txt!" << std::endl;
-    //     return 1;
-    // }
-
-    // while (std::getline(inputFile, line_out)) {
-    //     std::stringstream ss(line_out);
-        // int num;
-
-        // // Ghi dữ liệu vào cuối mỗi dòng
-        // while (ss >> num) {
-        //     outputFile << num << "==> abc ";
-        // }
-
-        // // Ghi kết thúc dòng
-        // outputFile << std::endl;
-
-        // std::string::size_type pos = inputFile.tellg();
-        // if (pos == std::string::npos || pos == line_out.length()) {
-        //     std::cout << "con tro da don toi cuoi dong!" << std::endl;
-        // } else {
-        //     std::cout << "con tro chua doc toi cuoi dong!" << std::endl;
-        // }
-    // }
-
-    // Đóng file
-    // inputFile.close();
-    // outputFile.close();
-
-    // std::cout << "du leu da ghi vao output.txt!" << std::endl;
-/*****************************************************/
-    // ShapeFactory shape_factory;
-    // string file_name = "data.txt";
-    // list<Shape*> shapes = shape_factory.readShapesFromFile(file_name);
-
-    // for(Shape* shape : shapes){
-    //     // cout <<  << endl;
-    // }
-    // return 0;
-
-    /*************************************/
-        ShapeFactory shapeFactory;
-
-    std::list<Shape*> shapes = shapeFactory.readShapesFromFile("data.txt");
+    list<Shape*> shapes = shapeFactory.readShapesFromFile(file_input);
     for (Shape* shape : shapes) {
-        std::cout << "Shape: " << shape->toString() << std::endl;
-        std::cout << "Perimeter: " << shape->getPerimeter() << std::endl;
-        std::cout << "Area: " << shape->getArea() << std::endl;
-        std::cout << std::endl;
+        // std::cout << "Shape: " << shape->toString() << std::endl;
+        cout << "Shape: " << shape->fromString("") << std::endl;
+        cout << "Perimeter: " << shape->getPerimeter() << std::endl;
+        cout << "Area: " << shape->getArea() << std::endl;
+        // cout << std::endl;
+        cout << "---------------------------------" << endl;
     }
-    cout << " **********************8" << endl;
+    
 
-    shapeFactory.saveShapesToFile("output.txt", shapes);
+    shapeFactory.saveShapesToFile(file_out, shapes);
 
     // Cleanup
     for (Shape* shape : shapes) {

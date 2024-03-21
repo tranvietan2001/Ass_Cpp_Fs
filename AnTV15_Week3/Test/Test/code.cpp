@@ -188,7 +188,7 @@ private:
     std::string m_job;
 
 public:
-    Person(const std::string& name, int age, const std::string& job)
+    Person(  std::string& name, int age, const std::string& job)
         : m_name(name), m_age(age), m_job(job) {}
 
     void displayInfo() const {

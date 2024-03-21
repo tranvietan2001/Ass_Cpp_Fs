@@ -1,4 +1,5 @@
-Tri o()
-Rec o()
-Cir o()
-Ell o()
+0 3 4 5 3 22 11			-> 0 la type Triangle, (3,4), (5,3), (22,11) la 3 dinh cua tam giac
+1 3 4 10 20				-> 1 la type Recangle, (3,4) la tam, 10 la width,20 la height
+2 3 4 15				-> 2 la type Circle, (3,4) la tam, 15 la ban kinh
+3 3 4 22 33				-> 3 la type Ellipse, (3,4) la tam, (22,33) la ban kinh (rx, ry)
+1 3 4 10 200				-> 1 la type Recangle, (3,4) la tam, 10 la width,200 la height
