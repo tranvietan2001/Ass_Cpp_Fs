@@ -11,9 +11,15 @@ class HUMAN{
         int m_age;
         int m_year_birth;
         string m_job;
+        
     public:
+
+
         HUMAN(string name, string id_number, int age, int year_birth, string job): m_name(name), m_id_number(id_number), m_age(age), m_year_birth(year_birth), m_job(job){}
         
+        string getName() const{
+            return m_name;
+        }
         void displayInforHuman() const{
             cout << "- Ho va ten: " << m_name << endl;
             cout << "- So CMND/CCCD: " << m_id_number << endl;
@@ -31,6 +37,15 @@ class TOWN {
     public:
         TOWN(const string& num_house): m_number_house(num_house) {}
 
+        const string getNumberHouse() const{
+            return m_number_house;
+        }
+        const HUMAN& getInforHuman(int index) const {
+            return list_infor_human[index];
+        }
+        const vector<HUMAN>& getInforHumanList() const {
+                return list_infor_human;
+        }
 
         void addInforHuman(const HUMAN& inforHuman){
             list_infor_human.push_back(inforHuman);
@@ -46,7 +61,7 @@ class TOWN {
             } 
         }
 
-        void findNumberHouse(const string number_house_find){
+        void searchNumberHouse(const string number_house_find){
             if(number_house_find == m_number_house){
                 cout << "---> Thong tin tim kiem duoc" << endl;
                 for(const HUMAN& human : list_infor_human){
@@ -54,28 +69,9 @@ class TOWN {
                     cout << "-----------------------------" << endl;
                 } 
             }
-            else cout << "--> Khong tim thay thong tin" << endl ;
-
-        }
-
-        void findName(const string name_find){
-
         }
 };
 
-// void inputInforFamily(){
-//     TOWN town;
-//     vector<HUMAN> list_infor;
-
-//     cout << "Ho Ten: ";
-//     getline(cin, town.addInforHuman);
-
-//     town.addInforHuman()
-// }
-
-// void outputInforFamily(){
-
-// }
 
 void menu(){
     cout << "=========QUAN LY DAN CU=========" << endl;
@@ -93,8 +89,8 @@ int main(int argc, char const *argv[]){
     do{
         menu();
         cin >> choose;
-        cout << "BAN LUA CHON CHUC NANG " << choose << endl;
-
+        cout << "===> BAN LUA CHON CHUC NANG " << choose << endl;
+        cout << "=================================" << endl;
         switch (choose)
         {
         case '1':
@@ -112,11 +108,13 @@ int main(int argc, char const *argv[]){
                 getline(cin, number_house);
 
                 int m;
-                cout << "  -> Nhap so thanh vien cua  ho dan " << i + 1 << ": ";
+                cout << "  -> Nhap so thanh vien cua ho dan " << i + 1 << ": ";
                 cin >> m;
 
                 TOWN town(number_house);
                 cin.ignore();
+
+                cout << "---------------------------------" << endl;
                 for (int j = 0; j < m; j++) {
                     string name;
                     string id_number;
@@ -124,7 +122,7 @@ int main(int argc, char const *argv[]){
                     int year_birth;
                     string job;
 
-                    cout << "==> Nhap thong tin thanh vien " << j + 1 << ":\n";
+                    cout << "==> Nhap thong tin thanh vien " << j + 1 << endl;
                     cout << " ==> Ho va ten: " ;
                     // cin.ignore();
                     getline(cin, name);
@@ -149,21 +147,36 @@ int main(int argc, char const *argv[]){
 
         case '2':
             cout << "===> TIM KIEM THONG TIN" << endl;
-            char c_find;
+            char c_search;
             do{ 
-                cout << "  ==> Tim kiem thong tin ve ho dan" << endl;
-                cout << "   --> 1. Tim kiem theo ho va ten. " << endl;
-                cout << "   --> 2. Tim kiem theo so nha." << endl;
-                cout << "   --> 0. Thoat khoi chuc nang!." << endl;
+                cout << "----Tim kiem thong tin ve ho dan----" << endl;
+                cout << "|| 1. Tim kiem theo ho va ten.    || " << endl;
+                cout << "|| 2. Tim kiem theo so nha.       ||" << endl;
+                cout << "|| 0. Thoat khoi chuc nang!.      ||" << endl;
                 cout << "------------------------------------" << endl;
                 cout << "--> Lua chon chuc nang tim kiem: ";
-                cin >> c_find;
-                
+                cin >> c_search;
                 string str= "";
-
-                switch (c_find){
+                
+                switch (c_search){
                 case '1':
                     cout <<"===>TIM KIEM THEO HO VA TEN" << endl;
+                    
+                    cout<< " -> Nhap ho va ten tin kiem: " ;
+                    cin.ignore();
+                    getline(cin, str);
+                    cout << " => Ho va ten can tim kiem: " << str << endl;
+                    
+                    for (const TOWN& search_town : list_town) {
+                        for(int i = 0; i < search_town.getInforHumanList().size();  i++){
+                            const HUMAN& resident = search_town.getInforHuman(i);
+                            
+                            if (resident.getName() == str) {
+                                search_town.displayInforTown();
+                                break;
+                            }
+                        }
+                    }
                     break;
                 case '2':
                     cout <<"===>TIM KIEM THEO SO NHA" << endl;
@@ -177,7 +190,7 @@ int main(int argc, char const *argv[]){
                         
                         cout << "------------------------------" << endl;
                         cout << "== Ho dan " << i + 1 << ":\n";
-                        list_town[i].findNumberHouse(str);
+                        list_town[i].searchNumberHouse(str);
                         cout << endl;
                     }
 
@@ -191,7 +204,7 @@ int main(int argc, char const *argv[]){
                     break;
                 }
 
-            }while(c_find !='0');
+            }while(c_search !='0');
 
             break;
         case '3':

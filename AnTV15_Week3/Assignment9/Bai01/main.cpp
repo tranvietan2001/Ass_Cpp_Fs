@@ -265,7 +265,7 @@ class ShapeFactory{
                 vector<float> list_value;
                 float value;
                 while (iss >> value){
-                    list_value.push_back(value);
+                    list_value.push_back(value);o
                 }
 
                 Point o(list_value[0], list_value[1]);

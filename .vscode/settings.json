@@ -56,5 +56,6 @@
         "thread": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
-    "workbench.colorCustomizations": {}
+    "workbench.colorCustomizations": {},
+    "files.autoSave": "onWindowChange"
 }
