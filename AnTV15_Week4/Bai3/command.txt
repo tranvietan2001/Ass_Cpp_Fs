@@ -1,0 +1,43 @@
+=======WINDOWS=======
+
+- Biên dịch file cpp thành file đối tượng (obj) *.o
+
+    g++ -c -Wall -Werror -fpic main.cpp
+
+    * trình biên dịch g++ để chỉ thực hiện quá trình biên dịch và 
+    tạo tệp đối tượng (.o) mà không liên kết thành tệp thực thi
+    * -Wall: Tùy chọn này bật tất cả các cảnh báo (warnings). 
+            Nó sẽ hiển thị tất cả các cảnh báo từ trình biên dịch liên quan 
+            đến tiêu chuẩn lập trình và các vấn đề tiềm ẩn trong mã nguồn.
+    * -Werror: Tùy chọn này sẽ xem cảnh báo như lỗi và dừng quá trình 
+            biên dịch nếu có bất kỳ cảnh báo nào được tạo ra. 
+            Điều này giúp đảm bảo rằng mã nguồn của bạn không chứa 
+            các cảnh báo bị bỏ qua hoặc không được xử lý.
+    * -fpic: Tùy chọn này là viết tắt của "position-independent code" (PIC) 
+            và nó chỉ định cho trình biên dịch tạo mã nhị phân 
+            không phụ thuộc vào vị trí. Điều này cần thiết khi bạn sử dụng 
+            mã nguồn trong một môi trường chia sẻ như thư viện động, 
+            vì nó cho phép mã nguồn được tải vào bộ nhớ ở bất kỳ vị trí 
+            nào và chạy mà không gặp vấn đề.
+
+- Biên dịch thư viên động thành dll từ cpp
+    
+    g++ -shared -o lib_math.dll lib_math.cpp
+
+    * -shared           : cho phép tạo ra một tệp DLL, 
+    * -o lib_math.dll   : chỉ định tên tệp DLL đầu ra 
+    * lib_math.cpp      : là tệp nguồn của thư viện.
+
+- Biên dịch và liên kết thư viện động với chương cpp trình chính
+    
+    g++ -o main main.cpp -L. -llib_math
+
+    * -o main   : chỉ định tên tệp thực thi được tạo ra (ở đây là main).
+    * main.cpp  : là tệp nguồn chứa hàm main() của chương trình.
+    * -L.       : chỉ định thư mục tìm kiếm thư viện động (ở đây là thư mục hiện tại).
+    * -llib_math: chỉ định tên của thư viện động (ở đây là lib_math).
+    ==> tạo ra file thực thi *exe
+
+- chạy chương trình
+    main.exe
+
