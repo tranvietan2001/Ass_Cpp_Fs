@@ -12,8 +12,6 @@ class QUEUE{
     public:
 
         QUEUE(): size(-1){}
-
-        // kiem tra mang day
         bool isFull() {
             return (size == MAX_SIZE - 1);
         }
@@ -28,21 +26,32 @@ class QUEUE{
                 cout << "Stack day! Khong the push them du lieu." << endl;
                 return;
             }
-            else    
+            else
                 list_students[++size] = data; 
         }
 
         void Dequeue(int index){
             if(index > size) {
-                cout << "==> So luong phan tu loai bo lon hon kich thuoc hien tai của mang!" << endl;
+                cout << "==> So luong phan tu loai bo lon hon kich thuoc hien tai cua mang!" << endl;
             }
             else {
-                for(int i = 0; i < index; i++){
-                    for (int j = index; j < size - 1; j++) {
-                        list_students[j] = list_students[j + 1];
-                    }
-                    size--;
+                int new_size = size - index + 1;
+
+                // cout << new_size << endl;
+                string* list_temp = new string[new_size];
+
+                for (int i = 0; i < new_size; i++) {
+                    list_temp[i] = list_students[index + i];
+
+                    // cout << list_temp[i] << "\t";
                 }
+                // cout << endl;
+                for (int j = 0; j < new_size; j++) {
+                    list_students[j] = list_temp[j];
+                    // cout << list_students[j] << "\t";
+                }
+                cout << endl;
+                size = new_size - 1;
             }
         }
 
@@ -63,7 +72,7 @@ class QUEUE{
                 cout << "Stack trong. Khong co du lieu hien ti." << endl;
             }
             else {
-                for(int i=0 ; i < size+1; i++){
+                for(int i=0 ; i < (size+1); i++){
                     cout << "- Phan tu thu " << i+1<< " : [" << i << "] " << list_students[i] <<endl;
                 }
             }
@@ -73,6 +82,7 @@ class QUEUE{
     
 };
 int main(int argc, char const *argv[]){
+    cout <<  "QUEUE VOI KIEU DU LIEU STRING" << endl ;
     QUEUE q;
     int n;
     string full_name;
@@ -99,7 +109,7 @@ int main(int argc, char const *argv[]){
     cout << "------------------------------------" << endl;
     
     int j;
-    cout << "-> Nhap so luong sinh vien muon xoa o cuoi mang ra khoi bo du lieu: " ;
+    cout << "-> Nhap so luong sinh vien muon lay ra khoi QUEUE: " ;
     cin >> j;
     q.Dequeue(j);
 
@@ -120,7 +130,7 @@ int main(int argc, char const *argv[]){
 
     cout << "------------------------------------" << endl;
     cout << "==> NHAP XONG THONG TIN!" << endl;
-    cout << "=> IN THONG TIN SINH VIEN VUA NHAP" << endl;
+    cout << "=> IN THONG TIN TAT CA SINH VIEN CO TRONG MANG (VUA NHAP + DA CO TRONG MANG)" << endl;
     q.outputData();
 
     return 0;

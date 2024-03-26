@@ -129,7 +129,7 @@ int main(int argc, char const *argv[]){
                     cout << " ==> So CMND/CCCD: ";
                     cin >> id_number; 
                     cout << " ==> Tuoi: ";
-                    cin >> age ;
+                    cin >> age;
                     cout << " ==> Nam sinh: ";
                     cin >> year_birth;
                     cout << " ==> Nghe nghiep: " ;

@@ -36,7 +36,7 @@ class STACK{
             }
             else {
                 for(int i=0 ; i < size+1; i++){
-                    cout << "- Phan tu thu " << i+1<< " : [" << i << "] " << list_students[i] <<endl;
+                    cout << "- Phan tu thu " << i + 1 << " [" << i << "] : " << list_students[i] <<endl;
                 }
             }
             
@@ -44,6 +44,7 @@ class STACK{
 
         // truy cập phần tử trong mãng, xem data tại vị trí index
         string peekData(int index){
+            index = index - 1;
             if (isEmpty()) {
                 cout << "Stack trong. Khong co du lieu hien ti." << endl;
             }
@@ -54,6 +55,7 @@ class STACK{
         }
 };  
 int main(int argc, char const *argv[]){
+    cout <<  "STACK VOI KIEU DU LIEU STRING" << endl ;
     STACK stack;
     int n;
     string full_name;

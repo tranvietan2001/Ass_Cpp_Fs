@@ -244,12 +244,13 @@ class Ellipse : public Shape{
 
 class ShapeFactory{
     public:
-        Shape* createShape(int type, const std::string& s) {
-            std::istringstream iss(s);
+        Shape* createShape(int type, const string& s) {
+            istringstream iss(s);
             if (type == 0) {
                 vector<float> list_value;
                 float value;
                 while (iss >> value){
+                    // cout << value << "\t";
                     list_value.push_back(value);
                 }
                 // for(const float& l: list_value){
@@ -265,7 +266,7 @@ class ShapeFactory{
                 vector<float> list_value;
                 float value;
                 while (iss >> value){
-                    list_value.push_back(value);o
+                    list_value.push_back(value);
                 }
 
                 Point o(list_value[0], list_value[1]);
@@ -303,7 +304,7 @@ class ShapeFactory{
             list<Shape*> shapes;
             ifstream inputFile(filename);
             string line;
-            while (std::getline(inputFile, line)) {
+            while (getline(inputFile, line)) {
                 int type = line[0] - '0'; // chuyển string thành int, từ ký tự số thành giá trị số
                 string shapeData = line.substr(2);
                 Shape* shape = createShape(type, shapeData);
