@@ -4,8 +4,12 @@
 using namespace std;
 
 int main(){
-    float a = 16, b = 21;
-    cout << "a = " << a << ", b = " << b << endl;
+    float a,b;
+    cout << "-> Nhap a = ";
+    cin >> a;
+    cout << "-> Nhap b = ";
+    cin >> b;
+
     cout << "Chuong trinh tinh cong, tru, nhan, chia 2 so a va b" << endl;
     cout << "-> Tong a va b: " << add(a,b) << endl;
     cout << "-> Hieu a va b: " << sub(a,b) << endl;
