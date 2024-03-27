@@ -12,7 +12,7 @@ float mul(float a, float b) {
     return a * b;
 }
 
-float divide(float a, float b) {
+float div(float a, float b) {
     if (b != 0) {
         return a / b;
     } else {

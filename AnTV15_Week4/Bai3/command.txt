@@ -41,3 +41,14 @@
 - chạy chương trình
     main.exe
 
+
+
+
+tạo thư viện tĩnh *.lib
+- tạo file *.o
+
+    g++ -c lib_math.cpp 
+
+- tạo file *.lib
+
+    ar rcs lib_math.lib lib_math.o
