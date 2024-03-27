@@ -12,6 +12,7 @@
 //     weak_ptr<int> p3 = p2; // weak pointer p2 trỏ đến cùng object với p1
 
 //     cout << p1 << endl;
+//     p3.expired();
 //     // // cout << p2.lock() << endl;
 //     // p2.reset();
 //     cout << p1.use_count() << endl;
