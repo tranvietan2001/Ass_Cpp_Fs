@@ -14,9 +14,9 @@ class SharePointer{
         
     public:
         //constructor khởi tạo mặt định, gắn bằng null
-        SharePointer(): m_ptr(nullptr), m_count(nullptr){}
+        // SharePointer(): m_ptr(nullptr), m_count(nullptr){}
 
-        // constructor khi khỏi tạo obj thì tạo 1 con trở null và biến đếm tham chiếu = 1
+        // constructor khi khỏi tạo obj thì tạo 1 con trỏ null và biến đếm tham chiếu = 1
         SharePointer(T* ptr = nullptr): m_ptr(ptr), m_count(new int(1)){}
 
         // copy constructor tạo 1 share ptr từ 1 share ptr đã tồn tại
@@ -112,7 +112,7 @@ class WeakPointer{
     public:
 
         //constructor khởi tạo mặt định, gắn = nullptr
-        WeakPointer(): m_ptr(nullptr), m_count(nullptr){}
+        // WeakPointer(): m_ptr(nullptr), m_count(nullptr){}
 
         //copy constructor: khởi tạo obj weal ptr từ share ptr đã có, tạo ra 1 weak trỏ tới cùng 1 obj share ptr quản lý
         WeakPointer(const SharePointer<T>& s_ptr): m_ptr(s_ptr.m_ptr), m_count(s_ptr.m_count){

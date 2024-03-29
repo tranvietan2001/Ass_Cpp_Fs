@@ -5,10 +5,12 @@ using namespace std;
 
 
 int main(){
-    SharePointer<int> p1(new int(10));
+    SharePointer<int> p1(new int(10)); 
+    SharePointer<int> p19(new int(10));
     SharePointer<int> p4=p1;
     SharePointer<int> p5 =p1;
-    SharePointer<int> p6 =p1;
+    SharePointer<int> p6;
+    p6 = p1;
 // 
     WeakPointer<int> p2(new int(1));
 
@@ -19,7 +21,7 @@ int main(){
     // cout << p2.lock() << endl;
     cout << p1.use_count() << endl;
 
-    cout << p2.use_count() << endl;
+    cout << p19.use_count() << endl;
 
 
     // SharePointer<int> p2 = p1;

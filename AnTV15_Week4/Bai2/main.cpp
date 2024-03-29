@@ -23,11 +23,12 @@ bool checkPrime(size_t number){
 }
 
 void numberPrime(size_t a, size_t b){
+    // lock_guard<mutex> lock(mtx); // ==> 1 luồng thực hiện xong thì luông khác mới thực hiện
     for (size_t i = a; i <= b; i++){
         if(checkPrime(i)){
             // tự động đóng mà mở khóa mutex khi ra khỏi phạm vi 
             // tương đương với lock + unlock, dùng tự động để tránh việc quên unlock
-            lock_guard<mutex> lock(mtx); 
+            lock_guard<mutex> lock(mtx); // => các luồng chạy khi in ra tránh việc in đè lên nhau : vd 607 149 -> 60149 .....7
             cout << i << "  ";
             list_prime.push_back(i);
         }
